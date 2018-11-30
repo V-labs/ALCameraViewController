@@ -56,7 +56,7 @@ open class CameraViewController: UIViewController {
     
     var animationDuration: TimeInterval = 0.5
     var animationSpring: CGFloat = 0.5
-    var rotateAnimation: UIViewAnimationOptions = .curveLinear
+    var rotateAnimation: UIView.AnimationOptions = .curveLinear
     
     var cameraButtonEdgeConstraint: NSLayoutConstraint?
     var cameraButtonGravityConstraint: NSLayoutConstraint?
@@ -84,7 +84,7 @@ open class CameraViewController: UIViewController {
     var cameraOverlayWidthConstraint: NSLayoutConstraint?
     var cameraOverlayCenterConstraint: NSLayoutConstraint?
     
-    let cameraView : CameraView = {
+    public let cameraView : CameraView = {
         let cameraView = CameraView()
         cameraView.translatesAutoresizingMaskIntoConstraints = false
         return cameraView
@@ -349,7 +349,7 @@ open class CameraViewController: UIViewController {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(rotateCameraView),
-            name: NSNotification.Name.UIDeviceOrientationDidChange,
+            name: UIDevice.orientationDidChangeNotification,
             object: nil)
     }
     
@@ -631,12 +631,12 @@ open class CameraViewController: UIViewController {
 
     private func showSpinner() -> UIActivityIndicatorView {
         let spinner = UIActivityIndicatorView()
-        spinner.activityIndicatorViewStyle = .white
+        spinner.style = .white
         spinner.center = view.center
         spinner.startAnimating()
         
         view.addSubview(spinner)
-        view.bringSubview(toFront: spinner)
+        view.bringSubviewToFront(spinner)
         
         return spinner
     }
